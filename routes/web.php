@@ -19,6 +19,10 @@ Route::get('/signin', function () {
     return view('layouts.app');
 });
 
+Route::get('/dashboard', function () {
+    return view('layouts.app');
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

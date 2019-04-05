@@ -2,12 +2,18 @@
     <header>
         <div class="container header_container">
             <div class="logo">
-                <a href="/">GameSport</a>
+                <router-link to="/">GameSport</router-link>
             </div>
-            <div class="login">
-                <a href="/signin">
-                    <img :src="require('../../assets/images/login.png')">
-                </a>
+            <div class="login" v-if="!isAuth">
+                <router-link to="/signin">
+                    <img :src="require('../../assets/images/login.png')"/>
+                </router-link>
+            </div>
+            <div v-if="isAuth">
+                <ul>
+                    <li><span @click="logoutUser">Logout</span></li>
+                    <li><router-link to="/dashboard">{{isAuth}}</router-link></li>
+                </ul>
             </div>
 
         </div>
@@ -16,7 +22,19 @@
 
 <script>
     export default {
-        name: "Header"
+        computed:{
+            isAuth(){
+                return this.$store.getters['admin/isAuth'];
+            }
+        },
+        methods:{
+            logoutUser() {
+                console.log('goin dispatch to admin/logoutUser');
+
+                    this.$store.dispatch('admin/logoutUser')
+
+            }
+        }
     }
 </script>
 
